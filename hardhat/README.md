@@ -1,6 +1,6 @@
-# Sample Hardhat Project
+# DAO VOTING PROJECT
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+https://sepolia.etherscan.io/address/0x1207F699b0Df0b3d9Ca19695621f4124B02c6f46#code
 
 Try running some of the following tasks:
 
