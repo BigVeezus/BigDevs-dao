@@ -332,9 +332,10 @@ export default function Home() {
 
       <div className={styles.main}>
         <div>
-          <h1 className={styles.title}>Welcome to Big Devs!</h1>
+          <h1 className={styles.title}>Welcome to Vizu Big Devs!</h1>
           <div className={styles.description}>
-            Welcome to the DAO voting system!
+            Welcome to the BigDevsDAO voting system for holders of BigDevsNFT
+            only!
           </div>
           <div className={styles.description}>
             Your BigDevs NFT Balance: {nftBalanceOfUser?.data?.toString()}
@@ -380,7 +381,7 @@ export default function Home() {
           )}
         </div>
         <div>
-          <img className={styles.image} src="https://i.imgur.com/buNhbF7.png" />
+          {/* <img className={styles.image} src="https://i.imgur.com/buNhbF7.png" /> */}
         </div>
       </div>
     </div>
