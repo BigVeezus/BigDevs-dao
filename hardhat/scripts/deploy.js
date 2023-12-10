@@ -21,7 +21,7 @@ async function main() {
   );
 
   // Deploy the DAO Contract
-  const amount = hre.ethers.parseEther("0.001");
+  const amount = hre.ethers.parseEther("4.1");
   const daoContract = await hre.ethers.deployContract(
     "BigDevsDAO",
     [fakeNftMarketplaceContract.target, nftContract.target],

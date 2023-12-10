@@ -46,7 +46,7 @@ export default function Home() {
   });
 
   // Fetch the balance of the DAO
-  const daoBalance = useBalance({
+  const daoBalance: any = useBalance({
     address: BigDevsDAOAddress,
   });
 
@@ -332,10 +332,12 @@ export default function Home() {
 
       <div className={styles.main}>
         <div>
-          <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
-          <div className={styles.description}>Welcome to the DAO!</div>
+          <h1 className={styles.title}>Welcome to Big Devs!</h1>
           <div className={styles.description}>
-            Your CryptoDevs NFT Balance: {nftBalanceOfUser?.data?.toString()}
+            Welcome to the DAO voting system!
+          </div>
+          <div className={styles.description}>
+            Your BigDevs NFT Balance: {nftBalanceOfUser?.data?.toString()}
             <br />
             {daoBalance.data && (
               <>
@@ -362,7 +364,8 @@ export default function Home() {
           </div>
           {renderTabs()}
           {/* Display additional withdraw button if connected wallet is owner */}
-          {address && address.toLowerCase() === daoOwner.data.toLowerCase() ? (
+          {address &&
+          address?.toLowerCase() === daoOwner?.data?.toLowerCase() ? (
             <div>
               {loading ? (
                 <button className={styles.button}>Loading...</button>
