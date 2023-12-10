@@ -1,11 +1,9 @@
-export const CryptoDevsNFTAddress =
-  "0x43811ba68A4c31ae2A665aa60344e03332EFAE76";
+export const BigDevsNFTAddress = "0x43811ba68A4c31ae2A665aa60344e03332EFAE76";
 export const FakeNFTMarketplaceAddress =
   "0xAC521B65448E56b75cB07780D1988A3aF2d70a85";
-export const CryptoDevsDAOAddress =
-  "0x1207F699b0Df0b3d9Ca19695621f4124B02c6f46";
+export const BigDevsDAOAddress = "0x1207F699b0Df0b3d9Ca19695621f4124B02c6f46";
 
-export const CryptoDevsNFTABI = [
+export const BigDevsNFTABI = [
   {
     inputs: [],
     stateMutability: "nonpayable",
@@ -595,7 +593,7 @@ export const FakeNFTMarketplaceABI = [
     type: "function",
   },
 ];
-export const CryptoDevsDAOABI = [
+export const BigDevsDAOABI = [
   {
     inputs: [
       {
