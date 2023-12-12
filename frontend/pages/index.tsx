@@ -9,7 +9,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import { formatEther } from "viem/utils";
-import { useAccount, useBalance, useContractRead } from "wagmi";
+import { useAccount, useBalance, useContractRead, useDisconnect } from "wagmi";
 import { readContract, waitForTransaction, writeContract } from "wagmi/actions";
 import styles from "../styles/Home.module.css";
 import { Inter } from "next/font/google";
@@ -19,6 +19,8 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 export default function Home() {
   // Check if the user's wallet is connected, and it's address using Wagmi's hooks.
   const { address, isConnected } = useAccount();
+
+  const { disconnect } = useDisconnect();
 
   // State variable to know if the component has been mounted yet or not
   const [isMounted, setIsMounted] = useState(false);
@@ -131,6 +133,10 @@ export default function Home() {
     }
   }
 
+  async function Disconnect() {
+    disconnect();
+  }
+
   // Function to vote YAY or NAY on a proposal
   async function voteForProposal(proposalId: number, vote: Vote) {
     setLoading(true);
@@ -194,8 +200,22 @@ export default function Home() {
       return renderCreateProposalTab();
     } else if (selectedTab === "View Proposals") {
       return renderViewProposalsTab();
+    } else if (selectedTab === "Disconnect") {
+      disconnectWallet();
     }
     return null;
+  }
+
+  function disconnectWallet() {
+    if (loading) {
+      return (
+        <div className={styles.description}>
+          Loading... Waiting for transaction...
+        </div>
+      );
+    } else {
+      console.log("I have been disconnected");
+    }
   }
 
   // Renders the 'Create Proposal' tab content
@@ -206,7 +226,7 @@ export default function Home() {
           Loading... Waiting for transaction...
         </div>
       );
-    } else if (nftBalanceOfUser.data === 0) {
+    } else if (nftBalanceOfUser?.data == 0) {
       return (
         <div className={styles.description}>
           You do not own any CryptoDevs NFTs. <br />
@@ -306,6 +326,8 @@ export default function Home() {
   useEffect(() => {
     if (selectedTab === "View Proposals") {
       fetchAllProposals();
+    } else if (selectedTab === "Disconnect") {
+      Disconnect();
     }
   }, [selectedTab]);
 
@@ -349,6 +371,18 @@ export default function Home() {
             <br />
             Total Number of Proposals: {numOfProposalsInDAO?.data?.toString()}
           </div>
+          <div>
+            {nftBalanceOfUser?.data == 1 && (
+              <div className={(styles.description, styles.flex)}>
+                Your balance is low, pls mint to get more voting power
+                <br />
+                <div className="">
+                  <button className={(styles.button, "green")}>Mint</button>
+                </div>
+              </div>
+            )}
+          </div>
+          <br />
           <div className={styles.flex}>
             <button
               className={styles.button}
@@ -363,10 +397,17 @@ export default function Home() {
               View Proposals
             </button>
           </div>
+          <div>
+            <button
+              className={styles.button}
+              onClick={() => setSelectedTab("Disconnect")}
+            >
+              Disconnect
+            </button>
+          </div>
           {renderTabs()}
           {/* Display additional withdraw button if connected wallet is owner */}
-          {address &&
-          address?.toLowerCase() === daoOwner?.data?.toLowerCase() ? (
+          {address && address.toLowerCase() === daoOwner?.data.toLowerCase() ? (
             <div>
               {loading ? (
                 <button className={styles.button}>Loading...</button>
