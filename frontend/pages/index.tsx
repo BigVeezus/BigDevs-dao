@@ -156,6 +156,25 @@ export default function Home() {
     setLoading(false);
   }
 
+  // function to call mint
+  async function mintNFT() {
+    setLoading(true);
+    try {
+      const tx = await writeContract({
+        address: BigDevsNFTAddress,
+        abi: BigDevsNFTABI,
+        functionName: "mint",
+        // args: [address],
+      });
+
+      await waitForTransaction(tx);
+    } catch (error) {
+      console.error(error);
+      window.alert(error);
+    }
+    setLoading(false);
+  }
+
   // Function to execute a proposal after deadline has been exceeded
   async function executeProposal(proposalId: number) {
     setLoading(true);
@@ -372,12 +391,17 @@ export default function Home() {
             Total Number of Proposals: {numOfProposalsInDAO?.data?.toString()}
           </div>
           <div>
-            {nftBalanceOfUser?.data == 1 && (
+            {nftBalanceOfUser?.data <= 1 && (
               <div className={(styles.description, styles.flex)}>
                 Your balance is low, pls mint to get more voting power
                 <br />
                 <div className="">
-                  <button className={(styles.button, "green")}>Mint</button>
+                  <button
+                    className={(styles.button, "green")}
+                    onClick={mintNFT}
+                  >
+                    Mint
+                  </button>
                 </div>
               </div>
             )}
@@ -407,7 +431,8 @@ export default function Home() {
           </div>
           {renderTabs()}
           {/* Display additional withdraw button if connected wallet is owner */}
-          {address && address.toLowerCase() === daoOwner?.data.toLowerCase() ? (
+          {address &&
+          address.toLowerCase() === daoOwner?.data?.toLowerCase() ? (
             <div>
               {loading ? (
                 <button className={styles.button}>Loading...</button>
