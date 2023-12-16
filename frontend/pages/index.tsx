@@ -372,7 +372,7 @@ export default function Home() {
             Total Number of Proposals: {numOfProposalsInDAO?.data?.toString()}
           </div>
           <div>
-            {nftBalanceOfUser?.data == 1 && (
+            {nftBalanceOfUser?.data <= 1 && (
               <div className={(styles.description, styles.flex)}>
                 Your balance is low, pls mint to get more voting power
                 <br />
